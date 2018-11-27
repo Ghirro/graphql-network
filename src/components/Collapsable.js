@@ -58,8 +58,8 @@ export default class Collapsable extends React.Component {
           </div>
           {object.params && object.params.length > 0 && (
             <div className="params">
-              {object.params.map(param => (
-                <div className="param">
+              {object.params.map((param, i) => (
+                <div className="param" key={`param-${i}`}>
                   <span className="paramName">{param.name}</span>
                   <Value value={param.value} kind={param.kind} />
                 </div>
@@ -69,13 +69,14 @@ export default class Collapsable extends React.Component {
         </div>
         {fields && opened && (
           <div className="fields">
-            {fields.map(field => (
+            {fields.map((field, i) => (
               <Collapsable
                 closable
                 object={field}
                 fragments={fragments}
                 opened={openChildren.indexOf(field.name) !== -1}
                 requestOpen={this.openIsRequested}
+                key={`field-${i}`}
               />
             ))}
           </div>
