@@ -8,9 +8,13 @@ export default class Collapsable extends React.Component {
     object: React.PropTypes.object.isRequired,
     topLevel: React.PropTypes.bool,
     opened: React.PropTypes.bool,
-    requestOpen: React.PropTypes.func.isRequired,
+    requestOpen: React.PropTypes.func,
     fragments: React.PropTypes.array.isRequired,
     closable: React.PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    requestOpen: () => {},
   };
 
   constructor(props) {
