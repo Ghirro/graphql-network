@@ -46,7 +46,8 @@ export default class LongInformation extends React.Component {
           )}
           {view === 'response' && (
             <Response
-              response={entry.responseBody}
+              response={entry.response}
+              responseBody={entry.responseBody}
             />
           )}
         </div>
