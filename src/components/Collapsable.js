@@ -1,16 +1,17 @@
 import React from 'react';
 import Value from './Value';
 import Computed from './Computed';
+import PropTypes from 'prop-types';
 
 export default class Collapsable extends React.Component {
 
   static propTypes = {
-    object: React.PropTypes.object.isRequired,
-    topLevel: React.PropTypes.bool,
-    opened: React.PropTypes.bool,
-    requestOpen: React.PropTypes.func.isRequired,
-    fragments: React.PropTypes.array.isRequired,
-    closable: React.PropTypes.bool.isRequired,
+    object: PropTypes.object.isRequired,
+    topLevel: PropTypes.bool,
+    opened: PropTypes.bool,
+    requestOpen: PropTypes.func.isRequired,
+    fragments: PropTypes.array.isRequired,
+    closable: PropTypes.bool.isRequired,
   };
 
   constructor(props) {

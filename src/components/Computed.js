@@ -1,5 +1,6 @@
 import React from 'react';
 import Collapsable from './Collapsable';
+import PropTypes from 'prop-types';
 
 export default function Computed({
   request,
@@ -24,6 +25,6 @@ export default function Computed({
 }
 
 Computed.propTypes = {
-  request: React.PropTypes.object.isRequired,
-  fragments: React.PropTypes.array.isRequired,
+  request: PropTypes.object.isRequired,
+  fragments: PropTypes.array.isRequired,
 };

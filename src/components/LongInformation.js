@@ -2,6 +2,7 @@ import React from 'react';
 import Raw from './Raw';
 import Computed from './Computed';
 import Response from './Response';
+import PropTypes from 'prop-types';
 
 export default class LongInformation extends React.Component {
   constructor(props) {
@@ -55,6 +56,6 @@ export default class LongInformation extends React.Component {
   }
 }
 LongInformation.propTypes = {
-  entry: React.PropTypes.object.isRequired,
-  onRequestClose: React.PropTypes.func.isRequired,
+  entry: PropTypes.object.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
 };

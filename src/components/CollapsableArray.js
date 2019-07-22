@@ -1,9 +1,10 @@
 import React from 'react';
 import Value from './Value';
+import PropTypes from 'prop-types';
 
 export default class CollapsableArray extends React.Component {
   static propTypes = {
-    arr: React.PropTypes.array.isRequired,
+    arr: PropTypes.array.isRequired,
   }
 
   constructor(props) {
@@ -44,5 +45,5 @@ export default class CollapsableArray extends React.Component {
 }
 
 CollapsableArray.propTypes = {
-  arr: React.PropTypes.array.isRequired,
+  arr: PropTypes.array.isRequired,
 };

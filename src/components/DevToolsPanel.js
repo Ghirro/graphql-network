@@ -1,6 +1,7 @@
 import React from 'react';
 import Entry from './Entry';
 import LongInformation from './LongInformation';
+import PropTypes from 'prop-types';
 
 import {
   isGraphQL,
@@ -9,12 +10,13 @@ import {
 
 export default class DevToolsPanel extends React.Component {
   static propTypes = {
-    requestFinished: React.PropTypes.object.isRequired,
-    getHAR: React.PropTypes.func.isRequired,
+    requestFinished: PropTypes.object.isRequired,
+    getHAR: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
+    this.urlPattList = [];
     this.state = {
       data: [],
       entryOpen: false,
@@ -23,7 +25,7 @@ export default class DevToolsPanel extends React.Component {
   }
 
   parseLogToState = (log) => {
-    if (!isGraphQL(log)) return null;
+    if (!isGraphQL(log, this.urlPattList)) return null;
     return parseEntry(log)
       .then(data => {
         this.setState({
@@ -48,6 +50,11 @@ export default class DevToolsPanel extends React.Component {
 
   componentDidMount() {
     this.props.requestFinished.addListener(this.requestHandler);
+    chrome.storage.sync.get('urlPattList', function(data) {
+      if(Array.isArray(data.urlPattList)) {
+          Object.assign(this.urlPattList, data.urlPattList);
+      }
+  }.bind(this));
   }
 
   render() {

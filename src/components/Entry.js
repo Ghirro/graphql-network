@@ -1,5 +1,6 @@
 import React from 'react';
 import Request from './Request';
+import PropTypes from 'prop-types';
 
 export default function Entry({
   entry,
@@ -24,7 +25,7 @@ export default function Entry({
 }
 
 Entry.propTypes = {
-  entry: React.PropTypes.object.isRequired,
-  onClick: React.PropTypes.func.isRequired,
-  isSelected: React.PropTypes.bool.isRequired,
+  entry: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool.isRequired,
 };

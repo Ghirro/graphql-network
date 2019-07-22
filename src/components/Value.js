@@ -2,6 +2,7 @@ import React from 'react';
 import CollapsableArray from './CollapsableArray';
 import isPlainObject from 'lodash/isPlainObject';
 import CollapsableObject from './CollapsableObject';
+import PropTypes from 'prop-types';
 
 // TODO: Check Object.isObject
 export default function Value({
@@ -54,10 +55,10 @@ export default function Value({
 }
 
 Value.propTypes = {
-  value: React.PropTypes.any.isRequired,
-  field: React.PropTypes.string,
-  kind: React.PropTypes.string,
-  index: React.PropTypes.number,
-  requestOpen: React.PropTypes.func,
-  openChildren: React.PropTypes.array,
+  value: PropTypes.any.isRequired,
+  field: PropTypes.string,
+  kind: PropTypes.string,
+  index: PropTypes.number,
+  requestOpen: PropTypes.func,
+  openChildren: PropTypes.array,
 };

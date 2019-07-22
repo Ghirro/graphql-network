@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const quickDisplayParams = (x) => {
   if (!x) return 'None';
@@ -25,7 +26,7 @@ function Operation({
 }
 
 Operation.propTypes = {
-  operation: React.PropTypes.object.isRequired,
+  operation: PropTypes.object.isRequired,
 };
 
 
@@ -45,5 +46,5 @@ export default function Request({
 }
 
 Request.propTypes = {
-  request: React.PropTypes.object.isRequired,
+  request: PropTypes.object.isRequired,
 };

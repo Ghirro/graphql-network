@@ -76,10 +76,17 @@ function getQueryFromParams(params = []) {
   return decodeURIComponent(params.find(param => param.name === 'query').value);
 }
 
-export function isGraphQL(entry) {
+export function isGraphQL(entry, urlPattList) {
   try {
     if (isContentType(entry, 'application/graphql')) {
       return true;
+    }
+
+    for (let index = 0; index < urlPattList.length; index++) {
+      const urlPatt = new RegExp(urlPattList[index], "g");
+      if (urlPatt.test(entry.request.url)) {
+        return true;
+      }
     }
 
     if (isContentType(entry, 'application/json')) {
@@ -90,6 +97,7 @@ export function isGraphQL(entry) {
     if (isContentType(entry, 'application/x-www-form-urlencoded') && getQueryFromParams(entry.request.postData.params)) {
       return true;
     }
+
   } catch (e) {
     return false;
   }
@@ -119,8 +127,12 @@ export function parseEntry(entry) {
     }
 
     for (let batchItem of json) {
-      const { query } = batchItem;
+      let { query, graphQuery } = batchItem;
       let { variables } = batchItem;
+
+      if (graphQuery) {
+        query = graphQuery;
+      }
 
       try {
         variables = typeof variables === 'string' ? JSON.parse(variables) : variables;

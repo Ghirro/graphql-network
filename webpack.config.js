@@ -18,6 +18,7 @@ const babelLoader = {
 module.exports = {
   entry: {
     panel: './src/panel.js',
+    options: './src/options.js'
   },
 
   postcss: [
