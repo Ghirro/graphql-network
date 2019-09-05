@@ -21,7 +21,18 @@ export default class DevToolsPanel extends React.Component {
       data: [],
       entryOpen: false,
       openIndex: null,
+      hasError: null
     };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // You can also log the error to an error reporting service
+    console && console.log(error, errorInfo);
   }
 
   parseLogToState = (log) => {
@@ -58,6 +69,10 @@ export default class DevToolsPanel extends React.Component {
   }
 
   render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong. <span>{JSON.stringify(this.state.hasError)}</span></h1>;
+    }
     const { data, entryOpen } = this.state;
     return (
       <div className="devToolsWrapper">
