@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function Raw({
   query,
@@ -19,6 +20,6 @@ export default function Raw({
 }
 
 Raw.propTypes = {
-  query: React.PropTypes.string.isRequired,
-  queryVariables: React.PropTypes.object,
+  query: PropTypes.string.isRequired,
+  queryVariables: PropTypes.object,
 };

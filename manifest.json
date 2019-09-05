@@ -5,6 +5,7 @@
   "manifest_version": 2,
   "minimum_chrome_version": "43",
   "devtools_page": "devtools.html",
+  "options_page": "options.html",
   "icons": {
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
@@ -12,6 +13,7 @@
   "permissions": [
        "tabs",
        "http://*/*",
-       "https://*/*"
+       "https://*/*",
+       "storage"
   ]
 }

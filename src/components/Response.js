@@ -1,5 +1,6 @@
 import React from 'react';
 import CollapsableObject from './CollapsableObject';
+import PropTypes from 'prop-types';
 
 export default function Response({
   response,
@@ -19,5 +20,5 @@ export default function Response({
 }
 
 Response.propTypes = {
-  response: React.PropTypes.string.isRequired,
+  response: PropTypes.string.isRequired,
 };

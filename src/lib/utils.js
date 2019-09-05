@@ -76,21 +76,40 @@ function getQueryFromParams(params = []) {
   return decodeURIComponent(params.find(param => param.name === 'query').value);
 }
 
-export function isGraphQL(entry) {
+export function isGraphQL(entry, urlPattList) {
   try {
     if (isContentType(entry, 'application/graphql')) {
       return true;
     }
 
-    if (isContentType(entry, 'application/json')) {
-      const json = JSON.parse(entry.request.postData.text);
-      return json.query || json[0].query;
+    for (let index = 0; index < urlPattList.length; index++) {
+      const urlPatt = new RegExp(urlPattList[index], "g");
+      if (urlPatt.test(entry.request.url && entry.request.method !== "OPTIONS")) {
+        return true;
+      }
     }
 
-    if (isContentType(entry, 'application/x-www-form-urlencoded') && getQueryFromParams(entry.request.postData.params)) {
+    if (isContentType(entry, 'application/json')) {
+      let json;
+      try {
+        if (entry.request.postData){
+          json = JSON.parse(entry.request.postData.text); 
+        } else {
+          json = {};
+        }
+        return json && (json.query || json[0] && json[0].query);
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    }
+
+    if (isContentType(entry, 'application/x-www-form-urlencoded') && entry.request.postData && getQueryFromParams(entry.request.postData.params)) {
       return true;
     }
+
   } catch (e) {
+    console.log(e);
     return false;
   }
 }
@@ -109,8 +128,13 @@ export function parseEntry(entry) {
     let json;
 
     try {
-      json = JSON.parse(entry.request.postData.text);
+      if (entry.request.postData) {
+        json = JSON.parse(entry.request.postData.text);
+      } else {
+        json = {}
+      }
     } catch (e) {
+      console.log(`Internal Error Parsing: ${entry}. Message: ${e.message}. Stack: ${e.stack}`);
       return Promise.resolve(`Internal Error Parsing: ${entry}. Message: ${e.message}. Stack: ${e.stack}`);
     }
 
@@ -119,12 +143,20 @@ export function parseEntry(entry) {
     }
 
     for (let batchItem of json) {
-      const { query } = batchItem;
+      let { query, graphQuery } = batchItem;
       let { variables } = batchItem;
 
+      if (graphQuery) {
+        query = graphQuery;
+      }
+
       try {
+        if (variables === "") {
+          variables = "{}";
+        }
         variables = typeof variables === 'string' ? JSON.parse(variables) : variables;
       } catch (e) {
+        console.log(`Internal Error Parsing: ${entry}. Message: ${e.message}. Stack: ${e.stack}`);
         return Promise.resolve(`Internal Error Parsing: ${entry}. Message: ${e.message}. Stack: ${e.stack}`);
       }
 
@@ -134,7 +166,17 @@ export function parseEntry(entry) {
 
   return new Promise(resolve => {
     entry.getContent(responseBody => {
-      const parsedResponseBody = JSON.parse(responseBody);
+      let parsedResponseBody;
+      try {
+        if (responseBody === "") {
+          responseBody = "{}";
+        }
+        parsedResponseBody = JSON.parse(responseBody);
+      } catch(e) {
+        console.log(e);
+        Promise.resolve(`Internal Error Parsing: ${entry}. Message: ${e.message}. Stack: ${e.stack}`);
+      }
+
 
       resolve(parsedQueries.map((parsedQuery, i) => {
         return {
@@ -155,12 +197,14 @@ export function parseQuery(query, variables={}) {
   try {
     rawParse = parse(query);
   } catch (e) {
+    console.log(e);
     return Promise.resolve(`GraphQL Error Parsing: ${query}. Message ${e.message}. Stack: ${e.stack}`);
   }
 
   try {
     requestData = internalParse(rawParse);
   } catch (e) {
+    console.log(e);
     return Promise.resolve(`Internal Error Parsing: ${query}. Message: ${e.message}. Stack: ${e.stack}`);
   }
 
