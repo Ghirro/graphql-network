@@ -19,7 +19,7 @@ export default class LongInformation extends React.Component {
     return (
       <div className="longInfoWrapper">
         <div className="optsBanner">
-          <p onClick={onRequestClose}>x</p>
+          <p onClick={onRequestClose} className="close">x</p>
           <div className={`tab ${view === 'raw' && 'selected'}`} onClick={() => this.setView('raw')}>Raw Query</div>
           <div className={`tab ${view === 'computed' && 'selected'}`} onClick={() => this.setView('computed')}>Computed Query</div>
           <div className={`tab ${view === 'response' && 'selected'}`} onClick={() => this.setView('response')}>Response</div>
