@@ -5,6 +5,7 @@ export default function Entry({
   entry,
   onClick,
   isSelected,
+  entryOpen
 }) {
   return (
     <div className={`entryInner ${isSelected && 'selected'}`} onClick={onClick}>
@@ -13,7 +14,7 @@ export default function Entry({
       </div>
       {entry.data && entry.data.map((request, i) => {
         if (request.kind !== 'FragmentDefinition') {
-          return <Request key={`request-${i}`} request={request} />;
+          return <Request key={`request-${i}`} request={request} entryOpen={entryOpen} />;
         }
       })}
       {!entry.data && (
@@ -27,4 +28,5 @@ Entry.propTypes = {
   entry: React.PropTypes.object.isRequired,
   onClick: React.PropTypes.func.isRequired,
   isSelected: React.PropTypes.bool.isRequired,
+  entryOpen: React.PropTypes.bool.isRequired,
 };

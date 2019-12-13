@@ -69,6 +69,7 @@ export default class DevToolsPanel extends React.Component {
               onClick={() => this.setEntry(entry, i)}
               entry={entry}
               isSelected={entryOpen && entry.id === entryOpen.id}
+              entryOpen={entryOpen}
             />
           );
         })}

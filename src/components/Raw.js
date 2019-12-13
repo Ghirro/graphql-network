@@ -7,9 +7,8 @@ export default function Raw({
   return (
     <div className="response">
       <h3>Raw Query Data</h3>
-      <pre>
-        {query}
-      </pre>
+      <pre><code>{query}</code></pre>
+
       <h3>Query Variables</h3>
       <pre>
         {JSON.stringify(queryVariables, null, 4)}

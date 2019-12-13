@@ -32,14 +32,17 @@ Operation.propTypes = {
 // TODO: Change this and filename to "Definition"
 export default function Request({
   request,
+  entryOpen
 }) {
   const { name, operations } = request;
   return (
     <div className={'request'}>
       <span>{`- ${name}`}</span>
-      {operations.map(x => (
-        <Operation operation={x} />
-      ))}
+      {!entryOpen &&
+        operations.map(x => (
+          <Operation operation={x}/>
+        ))
+      }
     </div>
   );
 }
