@@ -7,17 +7,21 @@ export default function Response({
   return (
     <div className="response">
       <h3>Response</h3>
-      <div className="responseJson">
-        <CollapsableObject
-          object={response}
-          topLevel
-          open
-        />
-      </div>
+      {response != null ? (
+        <div className="responseJson">
+          <CollapsableObject
+            object={response}
+            topLevel
+            open
+          />
+        </div>
+      ) : (
+        <em>empty response body</em>
+      )}
     </div>
   );
 }
 
 Response.propTypes = {
-  response: React.PropTypes.string.isRequired,
+  response: React.PropTypes.object,
 };
