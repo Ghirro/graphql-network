@@ -141,6 +141,7 @@ export function parseEntry(entry) {
           responseBody: Array.isArray(parsedResponseBody) ? parsedResponseBody[i] : parsedResponseBody,
           url: entry.request.url,
           response: entry.response,
+          request: entry.request,
           ...parsedQuery
         };
       }));
