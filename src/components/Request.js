@@ -37,8 +37,8 @@ export default function Request({
   return (
     <div className={'request'}>
       <span>{`- ${name}`}</span>
-      {operations.map(x => (
-        <Operation operation={x} />
+      {operations.map((x, i) => (
+        <Operation operation={x} key={`operation-${i}`}/>
       ))}
     </div>
   );

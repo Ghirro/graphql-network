@@ -8,8 +8,8 @@ export default function Computed({
   const { operations } = request;
   return (
     <div className="computed">
-      {operations.map(x => (
-        <div className="computed-operation">
+      {operations.map((x, i) => (
+        <div className="computed-operation" key={`computed-operation-${i}`}>
           <Collapsable
             closable={false}
             object={x}

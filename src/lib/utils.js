@@ -134,7 +134,7 @@ export function parseEntry(entry) {
 
   return new Promise(resolve => {
     entry.getContent(responseBody => {
-      const parsedResponseBody = JSON.parse(responseBody);
+      const parsedResponseBody = (typeof responseBody === 'string' && responseBody.length === 0) ? null : JSON.parse(responseBody);
 
       resolve(parsedQueries.map((parsedQuery, i) => {
         return {
