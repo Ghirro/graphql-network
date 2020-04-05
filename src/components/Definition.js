@@ -29,8 +29,7 @@ Operation.propTypes = {
 };
 
 
-// TODO: Change this and filename to "Definition"
-export default function Request({
+export default function Definition({
   request,
 }) {
   const { name, operations } = request;
@@ -44,6 +43,6 @@ export default function Request({
   );
 }
 
-Request.propTypes = {
+Definition.propTypes = {
   request: React.PropTypes.object.isRequired,
 };
